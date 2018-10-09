@@ -12,6 +12,8 @@ from allennlp.data.instance import Instance
 from allennlp.data.token_indexers import SingleIdTokenIndexer, TokenIndexer
 from allennlp.data.tokenizers import Tokenizer, WordTokenizer
 
+from obqa.data.dataset_readers.common import token_indexer_dict_from_params
+
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
@@ -168,7 +170,7 @@ class ArcMultiChoiceJsonReader(DatasetReader):
     @classmethod
     def from_params(cls, params: Params) -> 'ArcMultiChoiceJsonReader':
         tokenizer = Tokenizer.from_params(params.pop('tokenizer', {}))
-        token_indexers = TokenIndexer.dict_from_params(params.pop('token_indexers', {}))
+        token_indexers = token_indexer_dict_from_params(params.pop('token_indexers', {}))
 
         choice_value_type = params.get('choice_value_type', None)
         question_value_type = params.get('question_value_type', None)
