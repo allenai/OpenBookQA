@@ -1,0 +1,89 @@
+{
+  "random_seed": 13370,
+  "numpy_seed": 1337,
+  "pytorch_seed": 133,
+  "dataset_reader": {
+    "type": "arc-multi-choice-json",
+    "token_indexers": {
+        "tokens": {
+            "type": "single_id",
+            "lowercase_tokens": true
+        }
+    },
+    "tokenizers": {
+        "default": {
+            "start_tokens": ["@start@"],
+            "end_tokens": ["@end@"]
+        },
+    },
+  },
+  "train_data_path": "data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Train.jsonl",
+  "validation_data_path": "data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Dev.jsonl",
+  "test_data_path": "data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test.jsonl",
+  "evaluate_on_test": true,
+  "model": {
+    "type": "qa_multi_choice_max_att",
+    "text_field_embedder": {
+      "tokens": {
+        "type": "embedding",
+        "pretrained_file": "data/glove/glove.840B.300d.txt.gz",
+        "embedding_dim": 300,
+        "trainable": false
+      }
+    },
+    "embeddings_dropout": 0.0,
+    "question_encoder": {
+      "type": "lstm",
+      "bidirectional": true,
+      "num_layers": 1,
+      "input_size": 300,
+      "hidden_size": 384
+    },
+    "question_encoder_aggregate": "max", //max, avg, sum, last
+    "share_encoders": true,
+    "choice_encoder": {
+      "type": "lstm",
+      "bidirectional": true,
+      "num_layers": 1,
+      "input_size": 300,
+      "hidden_size": 384  // same as premise encoder!
+    },
+    "choices_init_from_question_states": false,
+    "choice_encoder_aggregate": "max",  //max, avg, sum, last
+    "att_question_to_choice": {
+      "type": "linear", // "linear", "dot",
+      "combination": "x,y,x*y,x-y",
+      "tensor_1_dim": 768,
+      "tensor_2_dim": 768,
+      "activation": "linear"
+    },
+    "initializer": [
+      [".*linear_layers.*weight", {"type": "xavier_normal"}],
+      [".*token_embedder_tokens\\._projection.*weight", {"type": "xavier_normal"}],
+      [".*_question_encoder\\._module.*weight.*", {"type": "xavier_normal"}],
+    ]
+  },
+
+  "iterator": {
+    "type": "bucket",
+    "sorting_keys": [["question", "num_tokens"]],
+    "batch_size": 32
+  },
+
+  "trainer": {
+    "num_epochs": 30,
+    "patience": 10,
+    "cuda_device": -1,
+    "validation_metric": "+accuracy",
+    "optimizer": {
+      "type": "adam",
+      "lr": 0.001
+    },
+    "learning_rate_scheduler": {
+      "type": "reduce_on_plateau",
+      "factor": 0.5,
+      "mode": "max",
+      "patience": 10
+    }
+  }
+}

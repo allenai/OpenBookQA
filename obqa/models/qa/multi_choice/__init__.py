@@ -1,0 +1,4 @@
+from obqa.models.qa.multi_choice.qa_multi_choice_max_att import QAMultiChoiceMaxAttention
+from obqa.models.qa.multi_choice.qa_multi_choice_esim import QAMultiChoiceESIM
+from obqa.models.qa.multi_choice.qa_multi_choice_know_reader_v1 import QAMultiChoiceKnowReader_v1
+from obqa.models.qa.multi_choice.qa_multi_choice_one_vs_rest_choices_v1 import QAMultiChoice_OneVsRest_Choices_v1

@@ -1,0 +1,5 @@
+{
+  "random_seed": {"type":"random", "func":"randint", "args":{"a": 1, "b": 13337}},
+  "pytorch_seed": {"type":"random", "func":"randint", "args":{"a": 10, "b": 1337}},
+  "numpy_seed": {"type":"random", "func":"randint", "args":{"a": 100, "b": 4242}},
+}
