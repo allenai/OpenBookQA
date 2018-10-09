@@ -9,7 +9,7 @@ then
     exit
 fi
 
-wget -O glove.840B.300d.txt.gz https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.840B.300d.txt.gz
+wget https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.840B.300d.txt.gz
 
 mkdir -p ${EMBEDDINGS_DIR}
 mv glove.840B.300d.txt.gz ${EMBEDDINGS_DIR}/glove.840B.300d.txt.gz
