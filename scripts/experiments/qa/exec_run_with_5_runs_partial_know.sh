@@ -40,4 +40,5 @@ done
 metrics_files="${out_base_dir}/run01/metrics.json;${out_base_dir}/run02/metrics.json;${out_base_dir}/run03/metrics.json;${out_base_dir}/run04/metrics.json;${out_base_dir}/run05/metrics.json"
 
 python tools/merge_metrics_files.py "${metrics_files}" ${out_base_dir}/metrics.json
+echo "The combined metrics from ${num_splits} are printed in ${out_base_dir}/metrics.json"
 
