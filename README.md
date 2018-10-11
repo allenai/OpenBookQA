@@ -36,18 +36,22 @@ Please visit the [OpenBookQA Leaderboard](https://leaderboard.allenai.org/open_b
   bash scripts/install_requirements.sh
   ```
 
-4. Install pytorch as per instructions on <http://pytorch.org/>. Commands as of Aug. 7, 2018:
+4. Install pytorch
 
-  Mac (no CUDA): `conda install pytorch torchvision -c pytorch`  
-  Linux (no CUDA): `conda install pytorch-cpu torchvision-cpu -c pytorch`
+  Mac (no CUDA): `conda install pytorch==0.4.0 torchvision==0.2.1 -c pytorch`
+  Linux (no CUDA): `conda install pytorch-cpu==0.4.0 torchvision-cpu==0.2.1 -c pytorch`
 
-  Linux (with CUDA 8): `conda install pytorch torchvision cuda80 -c pytorch`  
-  Linux (with CUDA 9.0): `conda install pytorch torchvision -c pytorch`
+  Linux (with CUDA 8): `conda install pytorch==0.4.0 torchvision==0.2.1 cuda80 -c pytorch`
+  Linux (with CUDA 9.0): `conda install pytorch==0.4.0 torchvision==0.2.1 -c pytorch`
 
 
 # Downloading and Preparing Data
 
-Download the OpenBookQA dataset and embeddings using the script below. Note that this includes downloading `glove.840B.300d.zip`, a 2GB file containing 300-dimensional [GloVe word embeddings](https://nlp.stanford.edu/projects/glove) trained on 840B tokens, which can take several minutes. If you already have this file, you might consider altering the script.
+Download the OpenBookQA dataset and embeddings using the script below.
+Note that this includes downloading `glove.840B.300d.txt.gz`, a 2GB file
+containing 300-dimensional [GloVe word embeddings](https://nlp.stanford.edu/projects/glove)
+trained on 840B tokens, which can take several minutes.
+If you already have this file, you might consider altering the script.
 
  ```
  bash scripts/download_and_prepare_data.sh
@@ -58,7 +62,8 @@ Download the OpenBookQA dataset and embeddings using the script below. Note that
 
 If you use the script below, you might want to first look at
 ``scripts/experiments/qa/run_experiment_openbookqa.sh`` and set the
-``EXPERIMENTS_OUTPUT_DIR_BASE`` environment variable to a directory where you want to save the output of the experiments.
+``EXPERIMENTS_OUTPUT_DIR_BASE`` environment variable to a directory
+where you want to save the output of the experiments.
 Default is ``_experiments``.
 
 Note: If you want to use GPU for the experiments, make sure to change the
