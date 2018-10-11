@@ -32,17 +32,14 @@ Please visit the [OpenBookQA Leaderboard](https://leaderboard.allenai.org/open_b
 
 3. Install the requirements in the environment:
 
+Note: The script below installs Pytorch 0.4.0 for CUDA 8 only. If you are using a different CUDA version,
+please visit http://pytorch.org/ and install the relevant version.
+
   ```
   bash scripts/install_requirements.sh
   ```
 
-4. Install pytorch
 
-  Mac (no CUDA): `conda install pytorch==0.4.0 torchvision==0.2.1 -c pytorch`
-  Linux (no CUDA): `conda install pytorch-cpu==0.4.0 torchvision-cpu==0.2.1 -c pytorch`
-
-  Linux (with CUDA 8): `conda install pytorch==0.4.0 torchvision==0.2.1 cuda80 -c pytorch`
-  Linux (with CUDA 9.0): `conda install pytorch==0.4.0 torchvision==0.2.1 -c pytorch`
 
 
 # Downloading and Preparing Data
