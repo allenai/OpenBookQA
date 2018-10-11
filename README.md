@@ -40,8 +40,6 @@ please visit http://pytorch.org/ and install the relevant version.
   ```
 
 
-
-
 # Downloading and Preparing Data
 
 Download the OpenBookQA dataset and embeddings using the script below.
