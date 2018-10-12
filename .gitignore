@@ -102,3 +102,11 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# IntelliJ
+/OpenBookQA.iml
+
+# OBQA specific stuff
+/_experiments/
+/data/
+/obqa/data/retrieval/knowledge/data/
