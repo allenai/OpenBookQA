@@ -1,3 +1,2 @@
-https://github.com/tbmihailov/allennlp/archive/v0.5.1.obqa.zip
-
+allennlp==0.7.0
 networkx>=2.0
