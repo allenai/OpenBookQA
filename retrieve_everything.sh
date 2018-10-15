@@ -20,7 +20,7 @@ function retrieve() {
 }
 export -f retrieve
 
-parallel --line-buffer --colsep , 'retrieve' ::: <<EOF
+parallel --halt now,fail=1 --line-buffer --colsep , 'retrieve' ::: <<EOF
 openbook,${KNOWLEDGE_DIR_ROOT}/openbook.csv,--max_facts_per_choice 100 --limit_items 0
 cn5omcs,${KNOWLEDGE_DIR_ROOT}/CN5/cn5_omcs.json,--max_facts_per_choice 100 --limit_items 0
 cn5wordnet,${KNOWLEDGE_DIR_ROOT}/CN5/cn5_wordnet.json,--max_facts_per_choice 100 --limit_items 0
