@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -x
+set -e
+
+parallel --line-buffer -j3 'bash scripts/experiments/qa/run_experiment_openbookqa.sh' ::: \
+  training_config/qa/multi_choice/openbookqa/reader_mc_qa_question_to_choice.json \
+  training_config/qa/multi_choice/openbookqa/reader_mc_qa_question_to_choice_elmo.json \
+  training_config/qa/multi_choice/openbookqa/reader_mc_qa_esim.json \
+  training_config/qa/multi_choice/openbookqa/reader_mc_qa_esim_elmo.json \
+  training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_oracle_openbook_plus_cn5omcs.json \
+  training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_oracle_openbook_plus_cn5wordnet.json \
+  training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_cn5omcs.json \
+  training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_cn5wordnet.json \
+  training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5omcs.json \
+  training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5wordnet.json
