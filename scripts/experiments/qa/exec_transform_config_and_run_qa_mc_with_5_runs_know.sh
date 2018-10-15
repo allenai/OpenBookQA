@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -x
+
 base_config=$1
 config_transform=$2
 output_run_dir=$3
