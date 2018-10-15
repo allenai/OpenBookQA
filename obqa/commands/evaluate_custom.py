@@ -80,11 +80,10 @@ class EvaluateCustom(Subcommand):
 def evaluate(model: Model,
              instances: Iterable[Instance],
              data_iterator: DataIterator,
-             cuda_device: int,
              output_file: str = None) -> Dict[str, Any]:
     model.eval()
 
-    iterator = data_iterator(instances, num_epochs=1, cuda_device=cuda_device)
+    iterator = data_iterator(instances, num_epochs=1)
     logger.info("Iterating over dataset")
     generator_tqdm = Tqdm.tqdm(iterator, total=data_iterator.get_num_batches(instances))
     with ExitStack() as stack:
@@ -154,7 +153,7 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
     iterator = DataIterator.from_params(config.pop("iterator"))
     iterator.index_with(model.vocab)
 
-    metrics = evaluate(model, dataset, iterator, args.cuda_device, args.output_file)
+    metrics = evaluate(model, dataset, iterator, args.output_file)
 
     logger.info("Finished evaluating.")
     logger.info("Metrics:")

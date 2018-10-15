@@ -78,12 +78,11 @@ class EvaluatePredictionsQA_MC_Knowledge_Visualize(Subcommand):
 def evaluate(model: Model,
              instances: Iterable[Instance],
              data_iterator: DataIterator,
-             cuda_device: int,
              output_file: str = None,
              eval_type: str = None) -> Dict[str, Any]:
     model.eval()
 
-    iterator = data_iterator(instances, num_epochs=1, cuda_device=cuda_device)
+    iterator = data_iterator(instances, num_epochs=1)
     logger.info("Iterating over dataset")
     generator_tqdm = Tqdm.tqdm(iterator, total=data_iterator.get_num_batches(instances))
     with ExitStack() as stack:
@@ -173,7 +172,7 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
         logger.info("Reading evaluation data from %s", evaluation_data_path)
         dataset = dataset_reader.read(evaluation_data_path)
 
-        metrics = evaluate(model, dataset, iterator, args.cuda_device, out_file, eval_type)
+        metrics = evaluate(model, dataset, iterator, out_file, eval_type)
 
         logger.info("Finished evaluating.")
         logger.info("Metrics:")

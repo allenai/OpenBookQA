@@ -536,18 +536,15 @@ class QAMultiChoiceKnowReader_v1(Model):
         ----------
         instances : List[Instance], required
             The instances to run the model on.
-        cuda_device : int, required
-            The GPU device to use.  -1 means use the CPU.
 
         Returns
         -------
         A list of the models output for each instance.
         """
         with torch.no_grad():
-            cuda_device = self._get_prediction_device()
             dataset = Batch(instances)
             dataset.index_instances(self.vocab)
-            model_input = dataset.as_tensor_dict(cuda_device=cuda_device)
+            model_input = dataset.as_tensor_dict()
             outputs = self.decode(self(**model_input))
 
             instance_separated_output = []
