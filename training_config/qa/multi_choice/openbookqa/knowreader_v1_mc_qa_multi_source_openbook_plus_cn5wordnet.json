@@ -113,7 +113,6 @@
         "input_dim": 4,  // Inferred automatically to len(interactions)
         "num_layers": 1,
         "hidden_dims": [1],
-        "biases": [false],
         "activations": ["linear"],
         "dropout": [0.0]
       }
