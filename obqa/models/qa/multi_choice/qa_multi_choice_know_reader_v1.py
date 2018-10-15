@@ -11,6 +11,7 @@ from allennlp.data import Vocabulary, Instance
 from allennlp.models.model import Model
 from allennlp.modules import FeedForward, Seq2SeqEncoder, SimilarityFunction
 from allennlp.modules import TextFieldEmbedder
+from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.nn import InitializerApplicator, util
 from allennlp.nn.util import get_text_field_mask
 from allennlp.training.metrics import CategoricalAccuracy
@@ -436,7 +437,7 @@ class QAMultiChoiceKnowReader_v1(Model):
     @classmethod
     def from_params(cls, vocab: Vocabulary, params: Params) -> 'QAMultiChoiceKnowReader_v1':
         embedder_params = params.pop("text_field_embedder")
-        text_field_embedder = TextFieldEmbedder.from_params(vocab, embedder_params)
+        text_field_embedder = BasicTextFieldEmbedder.from_params(vocab, embedder_params)
 
         embeddings_dropout_value = params.pop("embeddings_dropout", 0.0)
 
