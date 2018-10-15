@@ -21,3 +21,5 @@ parallel --line-buffer -j3 'bash scripts/experiments/qa/run_experiment_openbookq
   training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5wordnet.json
 
 mv _experiments $EXPERIMENT_NAME
+
+echo "Success! Results are in $EXPERIMENT_NAME"
