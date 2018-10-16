@@ -68,7 +68,17 @@ instead of `scripts/experiments/qa/run_experiment_openbookqa.sh` in the experime
 
 ## 1. Without External Knowledge
 
-### 1.1 Question-to-Choice Model
+Table: Comparison between models with Glove (default) and ELMo.
+The comparison is mentioned in the text of the paper but it is not very clear.
+
+| Name                                | Dev      | Test     |
+|-------------------------------------|----------|----------|
+| Question-to-Choice (Question Match) | 54.6±1.2 | 50.2±0.9 |
+| Question-to-Choice + ELMo           | 57.1±1.1 | 50.6±1.2 |
+| ESIM                                | 53.9±0.4 | 48.9±1.1 |
+| ESIM + ELMo                         | 55.5±0.6 | 50.7±0.7 |
+
+### 1.1 Question-to-Choice Model (Question Match)
 
 Experiments with pre-trained [GloVe](https://nlp.stanford.edu/projects/glove) embedding vectors:
 ```
@@ -213,22 +223,16 @@ bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 Note: These experiments are **not** reported in the main paper! These are additional
 baseline models whose Dev and Test scores are listed below for reference.
 
+
+Table: Additional (Non-Oracle) experiments with external knowledge
+
 | Name                      | Dev      | Test     |
 |---------------------------|----------|----------|
-| Plausible Answer Detector | 54.4±0.7 | 49.6±0.7 |
-| Odd-one-out Solver        | 56.9±0.5 | 50.2±1.6 |
-| Question Match            | 54.6±1.2 | 50.2±0.9 |
-| Question Match + ELMo     | 57.1±1.1 | 50.6±1.2 |
-| ESIM                      | 53.9±0.4 | 48.9±1.1 |
-| ESIM + ELMo               | 55.5±0.6 | 50.7±0.7 |
-| f                         | 63\±2.3  | 55.8±2.3 |
-| f + k                     | 80.2±1.1 | 76.9±0.7 |
-| only ConceptNet           | 54.0±0.6 | 51.1±2.1 |
-| only Wordnet              | 54.9±0.4 | 49.4±1.5 |
-| f + ConceptNet            | 57.0±1.6 | 53.7±1.5 |
-| f + WordNet               | 57.6±1.4 | 56.3±1.3 |
+| ConceptNet (cn5omcs)      | 54.0±0.6 | 51.1±2.1 |
+| Wordnet (cn5wordnet)      | 54.9±0.4 | 49.4±1.5 |
 | OpenBook + ConceptNet     | 53.8±1.0 | 51.2±1.1 |
 | OpenBook + Wordnet        | 53.3±0.7 | 50.6±0.6 |
+
 
 * Open Mind Common Sense part of ConceptNet only (cn5omcs)
 
