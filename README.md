@@ -296,6 +296,9 @@ and the Std across 5 runs with different random seeds.
 | OpenBook + ConceptNet     | 53.8±1.0 | 51.2±1.1 |
 | OpenBook + Wordnet        | 53.3±0.7 | 50.6±0.6 |
 
+Below are commands for training new models or evaluating on the pre-trained models from the EMNLP paper.
+Note that even if you *just* evaluate on pre-trained models, you still
+need to run the knowledge retrieval from "2.1. Retrieve external knowledge".
 
 * Open Mind Common Sense part of ConceptNet only (cn5omcs)
 
