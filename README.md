@@ -303,7 +303,7 @@ and the Std across 5 runs with different random seeds and the result for the bes
 
 Below are commands for training new models or evaluating on the pre-trained models from the EMNLP paper.
 Note that even if you *just* evaluate on pre-trained models, you still
-need to run the knowledge retrieval from "2.1. Retrieve external knowledge".
+need to run the knowledge retrieval from [2.1. Retrieve external knowledge](#21-retrieve-external-knowledge).
 
 * Open Mind Common Sense part of ConceptNet only (cn5omcs)
 
