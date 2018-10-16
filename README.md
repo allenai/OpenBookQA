@@ -70,6 +70,8 @@ instead of `scripts/experiments/qa/run_experiment_openbookqa.sh` in the experime
 
 Table: Comparison between models with Glove (default) and ELMo.
 The comparison is mentioned in the text of the paper but it is not very clear.
+The results displayed here is accuracy (equivalent to exam score)
+and the Std across 5 runs with different random seeds.
 
 | Name                                | Dev      | Test     |
 |-------------------------------------|----------|----------|
@@ -224,14 +226,17 @@ Note: These experiments are **not** reported in the main paper! These are additi
 baseline models whose Dev and Test scores are listed below for reference.
 
 
-Table: Additional (Non-Oracle) experiments with external knowledge
+Table: Additional (Non-Oracle) experiments with external knowledge.
+The results displayed here is accuracy (equivalent to exam score)
+and the Std across 5 runs with different random seeds.
 
 | Name                      | Dev      | Test     |
 |---------------------------|----------|----------|
-| ConceptNet (cn5omcs)      | 54.0±0.6 | 51.1±2.1 |
-| Wordnet (cn5wordnet)      | 54.9±0.4 | 49.4±1.5 |
+| ConceptNet only (cn5omcs) | 54.0±0.6 | 51.1±2.1 |
+| Wordnet only (cn5wordnet) | 54.9±0.4 | 49.4±1.5 |
 | OpenBook + ConceptNet     | 53.8±1.0 | 51.2±1.1 |
 | OpenBook + Wordnet        | 53.3±0.7 | 50.6±0.6 |
+
 
 
 * Open Mind Common Sense part of ConceptNet only (cn5omcs)
