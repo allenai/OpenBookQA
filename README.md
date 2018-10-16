@@ -55,10 +55,13 @@ If you already have this file, you might consider altering the script.
 # Download Pre-trained models
 
 If you are interested in using the pre-trained models from the paper,
-you can download them.
+you can download them using the command below.
+
 Note: Some of the models that use ELMo are more than 700MB.
 If you do not plan to use them or have a slow internet connection,
 you might want to modify the download script and exclude them from downloading.
+
+Note: The downloaded models are for best performing run on Dev.
 
  ```
  bash scripts/download_trained_models.sh
@@ -81,16 +84,16 @@ instead of `scripts/experiments/qa/run_experiment_openbookqa.sh` in the experime
 ## 1. Without External Knowledge
 
 Table: Comparison between models with Glove (default) and ELMo.
-The comparison is mentioned in the text of the paper but it is not very clear.
-The results displayed here is accuracy (equivalent to exam score)
-and the Std across 5 runs with different random seeds.
+The comparison is mentioned in the text of the paper.
+The results displayed here are avg accuracy (equivalent to exam score)
+and the Std across 5 runs with different random seeds and the result for the best run on Dev.
 
-| Name                                | Dev      | Test     |
-|-------------------------------------|----------|----------|
-| Question-to-Choice (Question Match) | 54.6±1.2 | 50.2±0.9 |
-| Question-to-Choice + ELMo           | 57.1±1.1 | 50.6±1.2 |
-| ESIM                                | 53.9±0.4 | 48.9±1.1 |
-| ESIM + ELMo                         | 55.5±0.6 | 50.7±0.7 |
+| Model                               | Dev (5 runs) | Test (5 runs) | Dev (Best run)| Test  |
+|-------------------------------------|:------------:|:-------------:|:-------------:|:-----:|
+| Question-to-Choice (Question Match) | 54.6±1.2     | 50.2±0.9      | 56.8          | 49.8  |
+| Question-to-Choice + ELMo           | 57.1±1.1     | 50.6±1.2      | 58.4          | 50.0  |
+| ESIM                                | 53.9±0.4     | 48.9±1.1      | 54.4          | 47.4  |
+| ESIM + ELMo                         | 55.5±0.6     | 50.7±0.7      | 56.4          | 49.6  |
 
 ### 1.1 Question-to-Choice Model (Question Match)
 
@@ -288,15 +291,15 @@ baseline models whose Dev and Test scores are listed below for reference.
 
 
 Table: Additional (Non-Oracle) experiments with external knowledge.
-The results displayed here is accuracy (equivalent to exam score)
-and the Std across 5 runs with different random seeds.
+The results displayed here are avg accuracy (equivalent to exam score)
+and the Std across 5 runs with different random seeds and the result for the best run on Dev.
 
-| Name                      | Dev      | Test     |
-|---------------------------|----------|----------|
-| ConceptNet only (cn5omcs) | 54.0±0.6 | 51.1±2.1 |
-| Wordnet only (cn5wordnet) | 54.9±0.4 | 49.4±1.5 |
-| OpenBook + ConceptNet     | 53.8±1.0 | 51.2±1.1 |
-| OpenBook + Wordnet        | 53.3±0.7 | 50.6±0.6 |
+| Model                     | Dev (5 runs) | Test (5 runs) | Dev (Best run)| Test  |
+|---------------------------|:------------:|:-------------:|:-------------:|:-----:|
+| ConceptNet only (cn5omcs) | 54.0±0.6     | 51.1±2.1      | 54.4          | 52.2  |
+| Wordnet only (cn5wordnet) | 54.9±0.4     | 49.4±1.5      | 55.6          | 51.4  |
+| OpenBook + ConceptNet     | 53.8±1.0     | 51.2±1.1      | 54.6          | 50.8  |
+| OpenBook + Wordnet        | 53.3±0.7     | 50.6±0.6      | 54.2          | 51.2  |
 
 Below are commands for training new models or evaluating on the pre-trained models from the EMNLP paper.
 Note that even if you *just* evaluate on pre-trained models, you still
