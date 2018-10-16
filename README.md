@@ -134,6 +134,7 @@ python obqa/run.py evaluate_predictions_qa_mc \
 ### 1.2 ESIM Model
 
 Experiments with Glove pre-trained embeddings vectors:
+
 *Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_esim.json
@@ -151,6 +152,7 @@ python obqa/run.py evaluate_predictions_qa_mc \
 ```
 
 Experiments with ELMo contextual representations:
+
 *Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_esim_elmo.json
@@ -319,6 +321,7 @@ python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
 ```
 
 * WordNet part of ConceptNet only (cn5wordnet)
+
 *Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_cn5wordnet.json
@@ -339,6 +342,7 @@ python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
 (Note: this is **not** the Oracle setup from the paper; instead, science facts from
 the Open Book are retrieved based on a TF-IDF similarity measure with the question
 and answer choices)
+
 *Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5omcs.json
@@ -357,6 +361,7 @@ python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
 
 * Open Book + WordNet part of ConceptNet
 (Note: Similar to above, this is **not** the Oracle setup from the paper)
+
 *Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5wordnet.json
