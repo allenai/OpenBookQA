@@ -56,8 +56,9 @@ If you already have this file, you might consider altering the script.
 
 If you are interested in using the pre-trained models from the paper,
 you can download them.
-Note: Some of the models that use ELMo are more than 600M. If you do not plan to use them or have slow internet connection,
-you might want to modify the download script and exclude them.
+Note: Some of the models that use ELMo are more than 700MB.
+If you do not plan to use them or have a slow internet connection,
+you might want to modify the download script and exclude them from downloading.
 
  ```
  bash scripts/download_trained_models.sh
@@ -95,13 +96,13 @@ and the Std across 5 runs with different random seeds.
 
 Experiments with pre-trained [GloVe](https://nlp.stanford.edu/projects/glove) embedding vectors:
 
-*Train*
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_question_to_choice.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
 
-*Eval*
+*Evaluate on the pre-trained model*
 ```
 MODEL_ARCHIVE=data/trained_models/model_q2ch_best_run.tar.gz
 EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
@@ -109,29 +110,61 @@ python obqa/run.py evaluate_predictions_qa_mc \
                   --archive_file ${MODEL_ARCHIVE} \
                   --evaluation_data_file ${EVALUATION_DATA_FILE} \
                   --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
-
 ```
 
 
 Experiments with [ELMo](https://allennlp.org/elmo) contextual word representations:
+
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_question_to_choice_elmo.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
 
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_q2ch_elmo_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
+```
 
 ### 1.2 ESIM Model
 
 Experiments with Glove pre-trained embeddings vectors:
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_esim.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
 
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_esim_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
+```
+
 Experiments with ELMo contextual representations:
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_esim_elmo.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
+```
+
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_esim_elmo_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
 ```
 
 ## 2. Knowledge-Enhanced Models
@@ -264,37 +297,77 @@ and the Std across 5 runs with different random seeds.
 | OpenBook + Wordnet        | 53.3±0.7 | 50.6±0.6 |
 
 
-
 * Open Mind Common Sense part of ConceptNet only (cn5omcs)
 
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_cn5omcs.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
 
-* WordNet part of ConceptNet only (cn5wordnet)
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_kn_conceptnet5_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
+```
 
+* WordNet part of ConceptNet only (cn5wordnet)
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_cn5wordnet.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
+```
+
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_kn_wordnet_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
 ```
 
 * Open Book + Open Mind Common Sense part of ConceptNet
 (Note: this is **not** the Oracle setup from the paper; instead, science facts from
 the Open Book are retrieved based on a TF-IDF similarity measure with the question
 and answer choices)
-
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5omcs.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
 
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_kn_conceptnet5_and_openbook_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
+```
+
 * Open Book + WordNet part of ConceptNet
 (Note: Similar to above, this is **not** the Oracle setup from the paper)
-
+*Train a new model*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/knowreader_v1_mc_qa_multi_source_openbook_plus_cn5wordnet.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
+```
+
+*Evaluate on the pre-trained model*
+```
+MODEL_ARCHIVE=data/trained_models/model_kn_wordnet_and_openbook_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc_know_visualize \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
 ```
 
 
