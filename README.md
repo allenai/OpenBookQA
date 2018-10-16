@@ -52,6 +52,17 @@ If you already have this file, you might consider altering the script.
  bash scripts/download_and_prepare_data.sh
  ```
 
+# Download Pre-trained models
+
+If you are interested in using the pre-trained models from the paper,
+you can download them.
+Note: Some of the models that use ELMo are more than 600M. If you do not plan to use them or have slow internet connection,
+you might want to modify the download script and exclude them.
+
+ ```
+ bash scripts/download_trained_models.sh
+ ```
+
 
 # Training/Evaluating Neural Baselines for OpenBookQA
 
@@ -83,16 +94,31 @@ and the Std across 5 runs with different random seeds.
 ### 1.1 Question-to-Choice Model (Question Match)
 
 Experiments with pre-trained [GloVe](https://nlp.stanford.edu/projects/glove) embedding vectors:
+
+*Train*
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_question_to_choice.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
+
+*Eval*
+```
+MODEL_ARCHIVE=data/trained_models/model_q2ch_best_run.tar.gz
+EVALUATION_DATA_FILE=data/OpenBookQA-V1-Sep2018/Data/Main/test.jsonl
+python obqa/run.py evaluate_predictions_qa_mc \
+                  --archive_file ${MODEL_ARCHIVE} \
+                  --evaluation_data_file ${EVALUATION_DATA_FILE} \
+                  --output_file ${MODEL_ARCHIVE##*/}_pred_${EVALUATION_DATA_FILE##*/}
+
+```
+
 
 Experiments with [ELMo](https://allennlp.org/elmo) contextual word representations:
 ```
 config_file=training_config/qa/multi_choice/openbookqa/reader_mc_qa_question_to_choice_elmo.json
 bash scripts/experiments/qa/run_experiment_openbookqa.sh ${config_file}
 ```
+
 
 ### 1.2 ESIM Model
 
