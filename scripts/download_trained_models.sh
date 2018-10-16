@@ -7,7 +7,7 @@ set -x
 TRAINED_MODELS=data/trained_models
 mkdir -p ${TRAINED_MODELS}
 
-MODELS_URL_BASE=http://www.cl.uni-heidelberg.de/~mihaylov/downloads/openbookqa_models_local/
+MODELS_URL_BASE=https://s3-us-west-2.amazonaws.com/ai2-website/data/aristo-obqa
 model_files_list=(
 model_q2ch_best_run.tar.gz
 model_esim_best_run.tar.gz
