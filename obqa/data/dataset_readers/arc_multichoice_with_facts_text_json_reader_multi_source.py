@@ -14,7 +14,8 @@ from allennlp.data.tokenizers import Tokenizer, WordTokenizer
 import numpy as np
 
 from obqa.data.dataset_readers.common import read_cn5_surface_text_from_json, read_cn5_concat_subj_rel_obj_from_json, \
-    read_json_flexible, KnowSourceManager, get_key_and_value_by_key_match, tokenizer_dict_from_params
+    read_json_flexible, KnowSourceManager, get_key_and_value_by_key_match, tokenizer_dict_from_params, \
+    token_indexer_dict_from_params
 from obqa.data.dataset_readers.knowledge.rank_reader_flatchoices import RankReader_FlatChoices_v1
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
@@ -282,7 +283,7 @@ class ArcMultiChoiceWithFactsTextJsonReaderMultiSource(DatasetReader):
     def from_params(cls, params: Params) -> 'ArcMultiChoiceWithFactsTextJsonReaderMultiSource':
         # read tokenizers
         field_tokenizers = tokenizer_dict_from_params(params.get('tokenizers', {}))
-        token_indexers = TokenIndexer.dict_from_params(params.get('token_indexers', {}))
+        token_indexers = token_indexer_dict_from_params(params.get('token_indexers', {}))
 
         # external knowledge
         external_knowledge_params = params.pop('external_knowledge')

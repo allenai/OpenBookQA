@@ -29,12 +29,16 @@ for ((curr_run=1;curr_run<=num_splits;curr_run++)); do
     python tools/predictions_to_aristo_eval_json.py ${split_out_dir}/predictions_test.txt > ${split_out_dir}/aristo_evaluator_predictions_test.txt
 
     # try to export also attentions. This will fail for no-knowledge models
-    python obqa/run.py evaluate_predictions_qa_mc_know_visualize --archive_file ${split_out_dir}/model.tar.gz --output_file ${split_out_dir}/predictions_visual
-
+    knowledge_model_name="qa_multi_choice_know_reader_v1"
+    if grep -q ${knowledge_model_name} "${config_file}"; then
+        echo "${knowledge_model_name} is used in the config ${config_file}. Exporting attentions values for dev and test.."
+        python obqa/run.py evaluate_predictions_qa_mc_know_visualize --archive_file ${split_out_dir}/model.tar.gz --output_file ${split_out_dir}/predictions_visual
+    fi
     echo "curr_run=${curr_run} - Done!"
 done
 
 metrics_files="${out_base_dir}/run01/metrics.json;${out_base_dir}/run02/metrics.json;${out_base_dir}/run03/metrics.json;${out_base_dir}/run04/metrics.json;${out_base_dir}/run05/metrics.json"
 
 python tools/merge_metrics_files.py "${metrics_files}" ${out_base_dir}/metrics.json
+echo "The combined metrics from ${num_splits} are printed in ${out_base_dir}/metrics.json"
 

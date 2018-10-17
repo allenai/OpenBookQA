@@ -1,3 +1,4 @@
-git+https://github.com/tbmihailov/allennlp.git@work-v0.2-functions
+# AllenNLP version code - https://github.com/tbmihailov/allennlp/tree/v0.5.1.obqa
+https://github.com/tbmihailov/allennlp/archive/v0.5.1.obqa.zip
 
 networkx>=2.0
