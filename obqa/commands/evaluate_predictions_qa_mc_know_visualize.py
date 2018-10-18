@@ -145,7 +145,7 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
 
     if args.evaluation_data_file:
         evaluation_data_paths_list.append(args.evaluation_data_file)
-        evaluation_data_paths_list.append("input")
+        evaluation_data_short_names.append("input")
     else:
         if "validation_data_path" in config:
             evaluation_data_paths_list.append(config["validation_data_path"])
@@ -162,9 +162,10 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
 
     for i in range(len(evaluation_data_paths_list)):
         evaluation_data_path = evaluation_data_paths_list[i]
-        evaluation_data_short_name = evaluation_data_short_names[i]
+        evaluation_data_short_name = evaluation_data_path if len(evaluation_data_short_names) - 1 < i \
+                                                          else evaluation_data_short_names[i]
 
-        if len(output_files_list) == len(evaluation_data_path):
+        if len(output_files_list) == len(evaluation_data_paths_list):
             out_file = output_files_list[i]
         else:
             out_file = "{0}_{1}.txt".format(output_files_list[0], evaluation_data_short_name)
@@ -173,6 +174,8 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
         dataset = dataset_reader.read(evaluation_data_path)
 
         metrics = evaluate(model, dataset, iterator, out_file, eval_type)
+        if out_file is not None:
+            logging.info("Predictions exported to {0}".format(out_file))
 
         logger.info("Finished evaluating.")
         logger.info("Metrics:")
