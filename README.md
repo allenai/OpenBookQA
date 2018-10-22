@@ -20,24 +20,24 @@ Please visit the [OpenBookQA Leaderboard](https://leaderboard.allenai.org/open_b
 
 1. Create the `obqa` environment using Anaconda
 
-  ```
-  conda create -n obqa python=3.6
-  ```
+   ```
+   conda create -n obqa python=3.6
+   ```
 
 2. Activate the environment
 
-  ```
-  source activate obqa
-  ```
+   ```
+   source activate obqa
+   ```
 
 3. Install the requirements in the environment:
 
-Note: The script below installs Pytorch 0.4.0 for CUDA 8 only. If you are using a different CUDA version,
-please visit http://pytorch.org/ and install the relevant version.
+   Note: The script below installs Pytorch 0.4.0 for CUDA 8 only. If you are using a different CUDA version,
+   please visit http://pytorch.org/ and install the relevant version.
 
-  ```
-  bash scripts/install_requirements.sh
-  ```
+   ```
+   bash scripts/install_requirements.sh
+   ```
 
 
 # Downloading and Preparing Data
