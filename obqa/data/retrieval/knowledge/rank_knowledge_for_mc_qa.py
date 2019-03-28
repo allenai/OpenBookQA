@@ -38,17 +38,16 @@ def get_similarities(query_feats, para_features, top=10, combine_feat_scores="mu
     :param combine_feat_scores: The way for combining the multiple scores
     :return: Ranked fact ids with scores List[tuple(id, weight)]
     """
-    scores_per_feat = [pairwise_distances(q_feat, para_features, "cosine").ravel() for q_feat in
-                       query_feats]  # this is distance - low is better!!!
+    scores_per_feat = [pairwise_distances(q_feat, para_features, "cosine").ravel() for q_feat in query_feats]  # this is distance - low is better!!!
     comb_func = comb_funcs[combine_feat_scores]
 
-    smooting_val = 0.000001
-    max_val = pow((1 + smooting_val), 2)
-    dists = scores_per_feat[0] + smooting_val
+    smoothing_val = 0.000001
+    max_val = pow((1 + smoothing_val), 2)
+    dists = scores_per_feat[0] + smoothing_val
     if len(scores_per_feat) > 1:
         for i in range(1, len(scores_per_feat)):
-            dists = comb_func(scores_per_feat[i] + smooting_val, dists)
-    sorted_ix = np.argsort(dists).tolist()  # this is asc (lowers first) ,in case of ties, uses the earlier paragraph
+            dists = comb_func(scores_per_feat[i] + smoothing_val, dists)
+    sorted_ix = np.argsort(dists).tolist()  # this is asc (lowers first), in case of ties, uses the earlier paragraph
 
     return [[i, (max_val - dists[i]) / max_val] for i in sorted_ix][:top]
 
@@ -65,12 +64,12 @@ def combine_similarities(scores_per_feat, top=10, combine_feat_scores="mul"):
     # scores_per_feat = [pairwise_distances(q_feat, para_features, "cosine").ravel() for q_feat in query_feats]  # this is distance - low is better!!!
     comb_func = comb_funcs[combine_feat_scores]
 
-    smooting_val = 0.000001
-    max_val = pow((1 + smooting_val), 2)
-    dists = scores_per_feat[0] + smooting_val
+    smoothing_val = 0.000001
+    max_val = pow((1 + smoothing_val), 2)
+    dists = scores_per_feat[0] + smoothing_val
     if len(scores_per_feat) > 1:
         for i in range(1, len(scores_per_feat)):
-            dists = comb_func(scores_per_feat[i] + smooting_val, dists)
+            dists = comb_func(scores_per_feat[i] + smoothing_val, dists)
     sorted_ix = np.argsort(dists).tolist()  # this is asc (lowers first) ,in case of ties, uses the earlier paragraph
 
     max_val = max(np.max(dists), 1)
@@ -86,7 +85,6 @@ def get_similarities_ext(query_feats, para_features, top=0, combine_feat_scores=
     :param combine_feat_scores: The way for combining the multiple scores. mul, avg, sort supported.
     :param default_weights: Default weights for each paragraph in para_features. This will be used as first value to sort by when "sort" is used for combine_feat_scores.
     :return: Ranked fact ids with scores List[tuple(id, weight)]
-
     """
     scores_per_feat = [pairwise_distances(q_feat, para_features, "cosine").ravel() for q_feat in query_feats]
 
@@ -115,7 +113,7 @@ def print_json_formatted(json_item):
 
 
 def process_item_dart(text, add_entity=False):
-    """Processes dart dataset """
+    """Processes dart dataset"""
     tokens = text.split()
     tokens_filtered = [t for t in tokens if not (len(t) >= 2 and t[0].isupper() and not t[1].isupper())]
     if add_entity and len(tokens_filtered) < len(tokens):
@@ -134,13 +132,13 @@ data_reader_types = {
     "simple_reader_arc_qa_fact1_choice": SimpleReaderARC_Question_Choice("fact1"),
     "simple_reader_arc_qa_fact2_choice": SimpleReaderARC_Question_Choice("fact2"),
     "simple_reader_arc_qa_fact1_choice_and_q": SimpleReaderARC_Question_Choice("question", "fact1"),
-# fact1 with choices, question
+    # fact1 with choices, question
     "simple_reader_arc_qa_fact1_plus_question_choice_and_q": SimpleReaderARC_Question_Choice("question",
                                                                                              "fact1_plus_question"),
-# fact1+question with choices, question
+    # fact1+question with choices, question
     "simple_reader_arc_qa_fact1_diff_question_choice_and_q": SimpleReaderARC_Question_Choice("question",
                                                                                              "fact1_diff_question"),
-# fact1-question with choices, question
+    # fact1-question with choices, question
     "reader_arc_qa_question_choice_facts": ReaderARC_Question_Choice_Facts("fact1_first"),
     "reader_arc_qa_question_choice_facts_fact2_first": ReaderARC_Question_Choice_Facts("fact2_first")
 }
@@ -365,7 +363,6 @@ if __name__ == "__main__":
         for item_id in range(5):
             debug_item = queries_items_meta[item_id]
 
-
             def print_item_info(item_obj):
                 logging.info("Item obj:")
                 logging.info(item_obj)
@@ -376,7 +373,6 @@ if __name__ == "__main__":
                 logging.info("Top %s facts:" % max_facts_per_choice)
                 for fid, fact in enumerate(res_dists[item_id]):
                     logging.info("%s - %s - %s " % (fid, fact[1], paragraphs[fact[0]]))
-
 
             print_item_info(debug_item)
 

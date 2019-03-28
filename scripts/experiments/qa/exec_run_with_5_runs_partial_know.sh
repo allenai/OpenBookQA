@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -x
+
 echo "Starting exec_run_with_5_runs_partial_know.sh"
 
 out_run_dir=$1

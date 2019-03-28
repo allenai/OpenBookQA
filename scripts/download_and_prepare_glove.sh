@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
+
 set -e
+set -x
+
 EMBEDDINGS_DIR=data/glove
 
 if [ -e ${EMBEDDINGS_DIR}/glove.840B.300d.txt.gz ]

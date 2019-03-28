@@ -11,6 +11,7 @@ from allennlp.data import Vocabulary, Instance
 from allennlp.models.model import Model
 from allennlp.modules import FeedForward, Seq2SeqEncoder, SimilarityFunction
 from allennlp.modules import TextFieldEmbedder
+from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.nn import InitializerApplicator, util
 from allennlp.nn.util import get_text_field_mask
 from allennlp.training.metrics import CategoricalAccuracy
@@ -436,7 +437,7 @@ class QAMultiChoiceKnowReader_v1(Model):
     @classmethod
     def from_params(cls, vocab: Vocabulary, params: Params) -> 'QAMultiChoiceKnowReader_v1':
         embedder_params = params.pop("text_field_embedder")
-        text_field_embedder = TextFieldEmbedder.from_params(vocab, embedder_params)
+        text_field_embedder = BasicTextFieldEmbedder.from_params(vocab, embedder_params)
 
         embeddings_dropout_value = params.pop("embeddings_dropout", 0.0)
 
@@ -535,18 +536,15 @@ class QAMultiChoiceKnowReader_v1(Model):
         ----------
         instances : List[Instance], required
             The instances to run the model on.
-        cuda_device : int, required
-            The GPU device to use.  -1 means use the CPU.
 
         Returns
         -------
         A list of the models output for each instance.
         """
         with torch.no_grad():
-            cuda_device = self._get_prediction_device()
             dataset = Batch(instances)
             dataset.index_instances(self.vocab)
-            model_input = dataset.as_tensor_dict(cuda_device=cuda_device)
+            model_input = dataset.as_tensor_dict()
             outputs = self.decode(self(**model_input))
 
             instance_separated_output = []

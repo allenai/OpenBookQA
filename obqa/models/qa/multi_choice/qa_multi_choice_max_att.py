@@ -8,6 +8,7 @@ from allennlp.data import Vocabulary
 from allennlp.models.model import Model
 from allennlp.modules import Seq2SeqEncoder, MatrixAttention, SimilarityFunction
 from allennlp.modules import TextFieldEmbedder
+from allennlp.modules.text_field_embedders import BasicTextFieldEmbedder
 from allennlp.nn import InitializerApplicator
 from allennlp.training.metrics import CategoricalAccuracy
 
@@ -207,7 +208,7 @@ class QAMultiChoiceMaxAttention(Model):
     @classmethod
     def from_params(cls, vocab: Vocabulary, params: Params) -> 'QAMultiChoiceMaxAttention':
         embedder_params = params.pop("text_field_embedder")
-        text_field_embedder = TextFieldEmbedder.from_params(vocab, embedder_params)
+        text_field_embedder = BasicTextFieldEmbedder.from_params(vocab, embedder_params)
 
         embeddings_dropout_value = params.pop("embeddings_dropout", 0.0)
 

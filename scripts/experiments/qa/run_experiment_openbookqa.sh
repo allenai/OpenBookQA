@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -e
+set -x
+
 config_file=$1
 
 if [ ! -n "${config_file}" ] ; then
