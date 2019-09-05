@@ -15,7 +15,7 @@ echo "beaker_transform:${config_transform}"
 
 random_transformed=${temp_dir}/beaker_config_transformed.json
 
-num_splits=5
+num_splits=${NUMSPLITS-5}
 for ((run_id=1;run_id<=num_splits;run_id++)); do
     PYTHONPATH=. python tools/config_transform_standalone.py -i ${base_config} -po ${config_transform} -o ${random_transformed}
     temp_config=${temp_dir}/run0${run_id}.json

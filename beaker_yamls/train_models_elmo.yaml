@@ -17,5 +17,7 @@ tasks:
           containerPath: /input
         - datasetId: ds_gnguunokqdaf
           containerPath: /glove
+        - datasetId: ds_tknztx7lwx9v
+          containerPath: /elmo
       requirements:
         gpuCount: 1

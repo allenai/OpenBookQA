@@ -22,7 +22,7 @@ fi
 
 out_base_dir=${out_run_dir}
 
-num_splits=5
+num_splits=${NUMSPLITS-5}
 
 for ((curr_run=1;curr_run<=num_splits;curr_run++)); do
     echo "curr_run=${curr_run}"
