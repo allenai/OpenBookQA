@@ -1,0 +1,20 @@
+description: >-
+  Training using $CONFIG on $DATASET
+tasks:
+  - spec:
+      image: $BLUEPRINT
+      resultPath: /output
+      args:
+        - bash
+        - scripts/experiments/qa/run_experiment_openbookqa_gpu.sh
+        - $CONFIG
+      env:
+        DATASET: $DATASET
+        CONFIG: $CONFIG
+      datasetMounts:
+        - datasetId: $DATASET
+          containerPath: /input
+        - datasetId: ds_gnguunokqdaf
+          containerPath: /glove
+      requirements:
+        gpuCount: 1
