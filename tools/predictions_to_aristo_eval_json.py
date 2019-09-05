@@ -11,7 +11,7 @@ import json
 import sys
 
 
-id2key = ["A", "B", "C", "D", "E"]
+id2key = ["A", "B", "C", "D", "E", "F", "G", "H"]
 if __name__ == "__main__":
 
     use_file = False
@@ -32,7 +32,8 @@ if __name__ == "__main__":
         orig_json_item = json.loads(line.strip())
         new_json_item = {
             "id": orig_json_item["id"],
-            "prediction": {"choices": [{"label": id2key[id], "score": score if not reverse_probs else 1 - score} for id, score in enumerate(orig_json_item["label_probs"])]}
+            "prediction": {"choices": [{"label": id2key[id],
+                                        "score": score if not reverse_probs else 1 - score} for id, score in enumerate(orig_json_item["label_probs"])]}
         }
 
         print(json.dumps(new_json_item))
