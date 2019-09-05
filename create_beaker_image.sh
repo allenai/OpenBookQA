@@ -3,10 +3,10 @@
 # Create a Beaker image using provided image name tagged with the current username and git commit hash
 # of the repo. Key difference from create_docker_image: it will not push this image to docker, but
 # instead create a Beaker blueprint.
-# Usage: ./scripts/create_beaker_image.sh [image_prefix]
+# Usage: ./scripts/create_beaker_image.sh
 
 
-IMAGE_NAME=${1-OpenBookQA}
+IMAGE_NAME=OpenBookQA
 DOCKERFILE_NAME=Dockerfile
 
 # Image name

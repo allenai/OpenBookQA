@@ -11,6 +11,7 @@ RUN ./scripts/install_requirements.sh
 COPY obqa/ obqa/
 COPY scripts/ scripts/
 COPY training_config training_config/
+COPY tools/ tools/
 
 ENTRYPOINT []
 CMD ["/bin/bash"]
