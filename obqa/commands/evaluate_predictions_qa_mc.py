@@ -41,6 +41,7 @@ from allennlp.data import Instance
 from allennlp.data.iterators import DataIterator
 from allennlp.models.archival import load_archive
 from allennlp.models.model import Model
+from allennlp.nn.util import move_to_device ## for making cuda compatible input tensors
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -80,6 +81,7 @@ class EvaluatePredictionsQA_MC(Subcommand):
 def evaluate(model: Model,
              instances: Iterable[Instance],
              data_iterator: DataIterator,
+             cuda_device: int,
              output_file: str = None,
              eval_type: str = None) -> Dict[str, Any]:
     model.eval()
@@ -93,6 +95,9 @@ def evaluate(model: Model,
         else:
             file_handle = stack.enter_context(open(output_file, 'w'))
         for batch in generator_tqdm:
+            ## made cuda compatible (if needed)
+            batch = move_to_device(batch,cuda_device)
+            
             model_output = model(**batch)
             metrics = model.get_metrics()
             if file_handle:
@@ -231,7 +236,8 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
         logger.info("Reading evaluation data from %s", evaluation_data_path)
         dataset = dataset_reader.read(evaluation_data_path)
 
-        metrics = evaluate(model, dataset, iterator, out_file, eval_type)
+        ## pass again the cuda device settings 
+        metrics = evaluate(model, dataset, iterator, args.cuda_device, out_file, eval_type)
         if out_file is not None:
             logging.info("Predictions exported to {0}".format(out_file))
 
