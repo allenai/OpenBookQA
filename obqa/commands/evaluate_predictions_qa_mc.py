@@ -96,7 +96,7 @@ def evaluate(model: Model,
             file_handle = stack.enter_context(open(output_file, 'w'))
         for batch in generator_tqdm:
             ## made cuda compatible (if needed)
-            batch = move_to_device(batch,cuda_device)
+            batch = move_to_device(batch, cuda_device)
             
             model_output = model(**batch)
             metrics = model.get_metrics()
@@ -236,7 +236,6 @@ def evaluate_from_args(args: argparse.Namespace) -> Dict[str, Any]:
         logger.info("Reading evaluation data from %s", evaluation_data_path)
         dataset = dataset_reader.read(evaluation_data_path)
 
-        ## pass again the cuda device settings 
         metrics = evaluate(model, dataset, iterator, args.cuda_device, out_file, eval_type)
         if out_file is not None:
             logging.info("Predictions exported to {0}".format(out_file))
